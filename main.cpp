@@ -89,6 +89,19 @@ public:
 			distance=-dot(unit,diff)-sqrt(discriminant);
 			if(distance<=0)	continue;
 			index=i;
+			for (; i < n; i++){ // if there is a ball in front
+				double diff[3];
+				vector(diff, origin, balls[i].center);
+				double discriminant = dot(unit, diff) * dot(unit, diff) + balls[i].radius * balls[i].radius - dot(diff, diff);
+				if (discriminant < 0)
+					continue;
+				double distance2 = -dot(unit, diff) - sqrt(discriminant);
+				if (distance2 <= 0)
+					continue;
+				if(distance2>distance){continue;}
+				distance=distance2;
+				index = i;
+			}
 			break;
 		}
 		if(index==-1)
@@ -186,17 +199,15 @@ int main()
 	getchar();
 	gotoxy(0,0);
 	
-	
-	while(1)
-	{
-		char platno[HEIGHT/dH][WIDTH/dW];
-		camera cam(r,alfa,beta);
-		
-		for(int i=0;i<HEIGHT/dH;i++){
+	char platno[HEIGHT/dH][WIDTH/dW];
+	for(int i=0;i<HEIGHT/dH;i++){
 		for(int j=0;j<WIDTH/dW;j++){
 			platno[i][j]=0;
 		}}
+	while(1)
+	{
 		
+		camera cam(r,alfa,beta);
 		for(int i=0;i<HEIGHT/dH;i++){
 		for(int j=0;j<WIDTH/dW;j++){
 			double origin[3]=
@@ -225,9 +236,9 @@ int main()
 		//display:
 		for(int i=0;i<HEIGHT/dH;i++){
 		for(int j=0;j<WIDTH/dW;j++){
-			printf("%c",platno[i][j]);
+			std::cout<<platno[i][j];
 		}
-		printf("\n");
+		std:cout<<endl;
 		}
 		
 		//instead of system("cls") i used this because it looks smoother
