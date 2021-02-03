@@ -26,7 +26,7 @@ void gotoxy ( short x, short y )
 	printf("%c[%d;%df",0x1B,y,x);
 #endif
 }
-char palette[]=" .:;~=#OB8%&";
+char palette[]=" .\'`^\",:;Il!i><~+_-?][}{1)(|\\/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$█";
 
 typedef struct Ball{
 	double center[3];	
